@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student page</title>
+    <script src="https://kit.fontawesome.com/32ec909626.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/student.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  </head>
+  <body>
+    <header id="home">
+      <nav class="navbar navbar-expand-md fixed-top" style="background: #9b9b9b;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">CMD</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="me-auto"></ul>
+            <div class="nav-item">
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item dropdown d-flex align-items-center">
+                    <div class="nav-link nav-link-notification " href="#" role="button" style="padding-bottom: 0px;" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa-regular fa-bell icon-button">
+                        <div id="notification-point">
+                        </div>
+                      </i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li>
+                        <div class="dropdown-item d-flex">
+                          <div class="d-flex flex-column align-items-center">
+                            <img id="user-icon" src="./img/user.png" alt="Avatar" >
+                             David Mour
+                          </div>
+                          <div class="message-notification d-flex align-items-center">
+                            <p>Hello!</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="dropdown-item d-flex">
+                          <div class="d-flex flex-column align-items-center">
+                            <img id="user-icon" src="./img/user.png" alt="Avatar" >
+                             Timur Black
+                          </div>
+                          <div class="message-notification d-flex align-items-center">
+                            <p>Goodbye!</p>
+                          </div>
+                        </div>
+                      </li>         
+                    </ul>  
+                  </li>
+                  <li class="nav-item dropdown ">
+                    <div class="nav-link d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img class="me-2" id="user-icon" src="./img/user.png" alt="Avatar" >
+                      James Bond
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="#">Profile</a></li>
+                      <li><a class="dropdown-item" href="#">Log out</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class = "col-3">
+            <ul class="sidebar">
+              <li class="sidebar-item">
+                <a class="nav-link " href="#">Dashboard</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="nav-link" href="#">Students</a>
+              </li>
+              <li class="sidebar-item">
+                <a class="nav-link" href="#">Tasks</a>
+              </li>
+            </ul>
+          </div>
+          <div class = "col-9">
+            <h3 class="mb-1 mt-2">Students</h3>
+            <div class="mb-2" style="float: right;">
+              <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#ModalAddStudent"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col" style="text-align: center;"><i class="fa-regular fa-square-full"></i></th>
+                  <th scope="col">Group</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Birthday</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="reverseCheck1"></th>
+                  <td>KN-21</td>
+                  <td>John Smith</td>
+                  <td>M</td>
+                  <td>11.05.2004</td>
+                  <td><i class="fa-solid fa-circle stud-status"></i></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-pen"></i></button>
+                    <button type="button" class="btn btn-outline-secondary btn-delete-stud" style="padding: 0;"><i class="fa-solid fa-xmark"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" style="text-align: center;"><input class="form-check-input" type="checkbox" value="" id="reverseCheck1"></th>
+                  <td>KN-22</td>
+                  <td>Ann Bond</td>
+                  <td>F</td>
+                  <td>24.04.2004</td>
+                  <td><i class="fa-solid fa-circle stud-status"></i></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-pen"></i></button>
+                    <button type="button" class="btn btn-outline-secondary btn-delete-stud" style="padding: 0;"><i class="fa-solid fa-xmark"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+<!-- modal window add student -->
+    <div class="modal fade" id="ModalAddStudent" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabel">Add Student</h5>
+            <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex mb-3">
+              <label for="stud_group" class="form-label me-3" style="margin: auto; width: 100px;">Group</label>
+              <select class="form-select" id="stud_group">
+                <option>PZ-21</option>
+                <option>PZ-22</option>
+                <option>PZ-23</option>
+                <option>PZ-24</option>
+                <option>PZ-25</option>
+                <option>PZ-26</option>
+              </select>
+            </div>
+            <div class="d-flex mb-3">
+              <label for="stud_f_name" class="form-label me-3" style="margin: auto; width: 100px;">First Name</label>
+              <input type="text" class="form-control" id="stud_f_name" maxlength="40">
+            </div>
+            <div class="d-flex mb-3">
+              <label for="stud_l_name" class="form-label me-3" style="margin: auto; width: 100px;">Last Name</label>
+              <input type="text" class="form-control" id="stud_l_name" maxlength="40">
+            </div>
+            <div class="d-flex mb-3">
+              <label for="stud_gender" class="form-label me-3" style="margin: auto; width: 100px;">Gender</label>
+              <select class="form-select" id="stud_gender">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div class="d-flex mb-3">
+              <label for="stud_bday" class="form-label me-3" style="margin: auto; width: 100px;">Birthday</label>
+              <input type="date" class="form-control" id="stud_bday" maxlength="40">
+            </div>
+            <button type="submit" class="btn btn-outline-secondary" id="btn-add" style="width: 100%;">Додати</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="js/sweetalert2.all.min.js"></script>
+<!--     <script src="js/list.min.js"></script>
+    <script src="js/multiselect-dropdown.js" ></script> -->
+    <script src="js/student.js"></script>
+  </body>
+</html>
