@@ -41,7 +41,7 @@ $btnAdd.on('click', function() {
 
 function RemoveStudent (event) {
     Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: 'Do you want to delete user?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Delete',
