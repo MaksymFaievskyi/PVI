@@ -64,10 +64,15 @@ i.stud-status {
     color: #9b9b9b;
 }
 
-/* .dropdown:hover .dropdown-menu {
+.dropdown:hover .dropdown-menu {
     display: block;
- 
-} */
+    position: absolute;
+    right: 0px;
+
+}
+.dropdown>.dropdown-toggle:active {
+      pointer-events: none;
+}
 
 .modal-content{
     background: #ffffff;
