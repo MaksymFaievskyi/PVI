@@ -1,7 +1,7 @@
 console.log("File is read")
 
 // Модальне вікна
-var myModalAdd = new bootstrap.Modal($('#ModalAddStudent'), {
+var myModalAddEdit = new bootstrap.Modal($('#ModalAddEditStudent'), {
     keyboard: false
 })
 
@@ -36,7 +36,7 @@ $btnAdd.on('click', function() {
         $('#stud_gender').val('');
         $('#stud_bday').val('');
 
-        myModalAdd.hide()
+        myModalAddEdit.hide()
 })
 
 function RemoveStudent (event) {
@@ -67,5 +67,60 @@ function ChangeStatus(event){
 }
 $(document).on('click', 'i.stud-status', ChangeStatus);
 
+function EditStudent (event) {
+    
+    $("#ModalLabel").text("Edit student");
+    $('button#btn-add').text("Save");
+    let activeBtn = event.currentTarget;
+    console.log(activeBtn.parentElement.parentElement)
+    const dataArr = activeBtn.parentElement.parentElement.children;
+    console.log(dataArr[1].innerHTML)
 
+    let $groupOption = $('.select-group option')
+    for (const option of  $groupOption) {
+        //console.log(option)
+        if(option.innerHTML === dataArr[1].innerHTML){
+            option.setAttribute('selected','selected');
+            break;
+        }
+    }
+
+    const firstLastName = dataArr[2].innerHTML.split(" ");
+
+
+    $('#stud_f_name').val(firstLastName[0]);
+    $('#stud_l_name').val(firstLastName[1]);
+
+    let $genderOption = $('.select-gender option')
  
+    //console.log(option)
+    if(dataArr[3].innerHTML === "M"){
+        $genderOption[0].setAttribute('selected','selected');
+    }
+    else{
+        $genderOption[1].setAttribute('selected','selected');
+    }
+    const dateStr = dataArr[4].innerHTML;
+    const [day, month, year] = dateStr.split('.').map(Number);
+
+    const date = new Date(year, month - 1, day + 1);
+    const dateString = date.toISOString().split('T')[0];
+
+    const input = document.querySelector('input[type="date"]');
+    input.value = dateString;
+        
+
+/*     $('#stud_gender').val('');
+    $('#stud_bday').val(''); */
+
+
+    console.log("Success")
+}
+$(document).on('click', 'button.btn-edit-stud', EditStudent);
+
+function OpenModalToAdd (event) {
+    $("#ModalLabel").text("Add student");
+    $('button#btn-add').text("Create");
+      console.log("Success")
+}
+$(document).on('click', 'button.btn-add-stud', OpenModalToAdd);
