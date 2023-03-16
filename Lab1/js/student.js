@@ -1,4 +1,4 @@
-console.log("File is read")
+let editElem;
 
 // Модальне вікна
 var myModalAddEdit = new bootstrap.Modal($('#ModalAddEditStudent'), {
@@ -9,10 +9,36 @@ $(".nav-link-notification").on("click", function(){
     $("#notification-point").css("animation", "glowing 1200ms infinite");
 })
 
-let $btnAdd = $('button#btn-add');
-$btnAdd.on('click', function() {
+let $btnAdd = $('button#btn-add-edit');
+$btnAdd.on('click', function(event) {
+    if(event.target.innerHTML === "Create")
+    {
+        AddStudent();
+    } 
+    else if(event.target.innerHTML === "Save")
+    {
+        EditStudent();
+    }
+})
 
-        let elemsBody = document.querySelector("tbody");
+function EditStudent(){
+    const dataArr = editElem.parentElement.parentElement.children;
+    dataArr[1].innerHTML = $('#stud_group').val();
+    dataArr[2].innerHTML = `${$('#stud_f_name').val()} ${$('#stud_l_name').val()}`;
+    dataArr[3].innerHTML = $('#stud_gender').val() ==="Male" ? "M" : "F";
+    dataArr[4].innerHTML = $('#stud_bday').val();
+
+    $('#stud_group').val('');
+    $('#stud_f_name').val('');
+    $('#stud_l_name').val('');
+    $('#stud_gender').val('');
+    $('#stud_bday').val('');
+
+    myModalAddEdit.hide()
+}
+
+function AddStudent(){
+    let elemsBody = document.querySelector("tbody");
         elemsBody.insertAdjacentHTML("beforeend",
         `
         <tr>
@@ -23,7 +49,7 @@ $btnAdd.on('click', function() {
             <td>${$('#stud_bday').val()}</td>
             <td><i class="fa-solid fa-circle stud-status"></i></td>
             <td>
-                <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-pen"></i></button>
+                <button type="button" class="btn btn-outline-secondary btn-edit-stud" data-bs-toggle="modal" data-bs-target="#ModalAddEditStudent"><i class="fa-solid fa-pen"></i></button>
                 <button type="button" class="btn btn-outline-secondary btn-delete-stud"><i class="fa-solid fa-xmark"></i></button>
             </td>
         </tr>
@@ -37,8 +63,7 @@ $btnAdd.on('click', function() {
         $('#stud_bday').val('');
 
         myModalAddEdit.hide()
-})
-
+}
 function RemoveStudent (event) {
     Swal.fire({
         title: 'Do you want to delete user?',
@@ -67,20 +92,20 @@ function ChangeStatus(event){
 }
 $(document).on('click', 'i.stud-status', ChangeStatus);
 
-function EditStudent (event) {
+function FillingEditFields (event) {
     
     $("#ModalLabel").text("Edit student");
-    $('button#btn-add').text("Save");
+    $('button#btn-add-edit').text("Save");
     let activeBtn = event.currentTarget;
+    editElem = event.currentTarget;
     console.log(activeBtn.parentElement.parentElement)
     const dataArr = activeBtn.parentElement.parentElement.children;
-    console.log(dataArr[1].innerHTML)
 
     let $groupOption = $('.select-group option')
     for (const option of  $groupOption) {
         //console.log(option)
         if(option.innerHTML === dataArr[1].innerHTML){
-            option.setAttribute('selected','selected');
+            option.selected = true;
             break;
         }
     }
@@ -95,32 +120,27 @@ function EditStudent (event) {
  
     //console.log(option)
     if(dataArr[3].innerHTML === "M"){
-        $genderOption[0].setAttribute('selected','selected');
+        $genderOption[0].selected = true;
     }
     else{
-        $genderOption[1].setAttribute('selected','selected');
+        $genderOption[1].selected = true;
     }
     const dateStr = dataArr[4].innerHTML;
-    const [day, month, year] = dateStr.split('.').map(Number);
+/*     const [day, month, year] = dateStr.split('.').map(Number);
 
     const date = new Date(year, month - 1, day + 1);
     const dateString = date.toISOString().split('T')[0];
+     */
 
     const input = document.querySelector('input[type="date"]');
-    input.value = dateString;
-        
+    input.value = dateStr;
 
-/*     $('#stud_gender').val('');
-    $('#stud_bday').val(''); */
-
-
-    console.log("Success")
 }
-$(document).on('click', 'button.btn-edit-stud', EditStudent);
+
+$(document).on('click', 'button.btn-edit-stud', FillingEditFields);
 
 function OpenModalToAdd (event) {
     $("#ModalLabel").text("Add student");
-    $('button#btn-add').text("Create");
-      console.log("Success")
+    $('button#btn-add-edit').text("Create");
 }
 $(document).on('click', 'button.btn-add-stud', OpenModalToAdd);
