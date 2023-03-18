@@ -1,5 +1,36 @@
 let editElem;
 
+class Student{
+    constructor(group, firstName, lastName, gender, birthday) {
+        if(!(group && firstName && lastName && gender && birthday)){
+            throw new Error("Будь ласка заповніть всі поля!");
+        }
+        else if (!(/^[A-Za-z]{3,}$/.test(firstName))) {
+            throw new Error("You entered an incorrect first name. Please check!");
+        }
+        else if (!(/^[A-Za-z]{3,}$/.test(lastName))) {
+            throw new Error("You entered an incorrect last name. Please check!");
+        }
+        else
+        {
+            this.group = group;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.gender = gender;
+            this.birthday = birthday;
+        }
+    }
+    get getJSON(){
+        const json =  JSON.stringify(
+        {"group": this.group,
+        "firstName": this.firstName,
+        "lastName": this.lastName,
+        "gender": this.gender,
+        "birthday": this.birthday});
+        return json;
+    }
+}
+
 // Модальне вікна
 var myModalAddEdit = new bootstrap.Modal($('#ModalAddEditStudent'), {
     keyboard: false
@@ -28,17 +59,20 @@ function EditStudent(){
     dataArr[3].innerHTML = $('#stud_gender').val() ==="Male" ? "M" : "F";
     dataArr[4].innerHTML = $('#stud_bday').val();
 
-    $('#stud_group').val('');
+    $('.select-group option')[0].selected = true;
     $('#stud_f_name').val('');
     $('#stud_l_name').val('');
-    $('#stud_gender').val('');
+    $('.select-gender option')[0].selected = true;
     $('#stud_bday').val('');
 
     myModalAddEdit.hide()
 }
 
 function AddStudent(){
-    let elemsBody = document.querySelector("tbody");
+    try {
+        const student = new Student($('#stud_group').val(),$('#stud_f_name').val(),$('#stud_l_name').val(),$('#stud_gender').val(),$('#stud_bday').val());
+        console.log(student.getJSON);
+        let elemsBody = document.querySelector("tbody");
         elemsBody.insertAdjacentHTML("beforeend",
         `
         <tr>
@@ -55,15 +89,22 @@ function AddStudent(){
         </tr>
         `
         )
-
-        $('#stud_group').val('');
+        $('.select-group option')[0].selected = true;
         $('#stud_f_name').val('');
         $('#stud_l_name').val('');
-        $('#stud_gender').val('');
+        $('.select-gender option')[0].selected = true;
         $('#stud_bday').val('');
-
+    
         myModalAddEdit.hide()
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Помилка',
+            text: error.message,
+        })
+    }
 }
+
 function RemoveStudent (event) {
     Swal.fire({
         title: 'Do you want to delete user?',
