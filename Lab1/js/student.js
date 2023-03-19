@@ -53,25 +53,37 @@ $btnAdd.on('click', function(event) {
 })
 
 function EditStudent(){
-    const dataArr = editElem.parentElement.parentElement.children;
-    dataArr[1].innerHTML = $('#stud_group').val();
-    dataArr[2].innerHTML = `${$('#stud_f_name').val()} ${$('#stud_l_name').val()}`;
-    dataArr[3].innerHTML = $('#stud_gender').val() ==="Male" ? "M" : "F";
-    dataArr[4].innerHTML = $('#stud_bday').val();
+    try {
+        const student = new Student($('#stud_group').val(),$('#stud_f_name').val(),$('#stud_l_name').val(),$('#stud_gender').val(),$('#stud_bday').val());
+        console.log(student.getJSON);
+        const dataArr = editElem.parentElement.parentElement.children;
+        dataArr[1].innerHTML = $('#stud_group').val();
+        dataArr[2].innerHTML = `${$('#stud_f_name').val()} ${$('#stud_l_name').val()}`;
+        dataArr[3].innerHTML = $('#stud_gender').val() ==="Male" ? "M" : "F";
+        dataArr[4].innerHTML = $('#stud_bday').val();
 
-    $('.select-group option')[0].selected = true;
-    $('#stud_f_name').val('');
-    $('#stud_l_name').val('');
-    $('.select-gender option')[0].selected = true;
-    $('#stud_bday').val('');
+        $('.select-group option')[0].selected = true;
+        $('#stud_f_name').val('');
+        $('#stud_l_name').val('');
+        $('.select-gender option')[0].selected = true;
+        $('#stud_bday').val('');
 
-    myModalAddEdit.hide()
+        myModalAddEdit.hide()
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+        })
+    }
+    
 }
 
 function AddStudent(){
     try {
         const student = new Student($('#stud_group').val(),$('#stud_f_name').val(),$('#stud_l_name').val(),$('#stud_gender').val(),$('#stud_bday').val());
         console.log(student.getJSON);
+        $('#hidden-input').val(+$('#hidden-input').val() + 1);
         let elemsBody = document.querySelector("tbody");
         elemsBody.insertAdjacentHTML("beforeend",
         `
@@ -99,7 +111,7 @@ function AddStudent(){
     } catch (error) {
         Swal.fire({
             icon: 'error',
-            title: 'Помилка',
+            title: 'Error',
             text: error.message,
         })
     }
@@ -153,13 +165,11 @@ function FillingEditFields (event) {
 
     const firstLastName = dataArr[2].innerHTML.split(" ");
 
-
     $('#stud_f_name').val(firstLastName[0]);
     $('#stud_l_name').val(firstLastName[1]);
 
     let $genderOption = $('.select-gender option')
  
-    //console.log(option)
     if(dataArr[3].innerHTML === "M"){
         $genderOption[0].selected = true;
     }
@@ -167,15 +177,9 @@ function FillingEditFields (event) {
         $genderOption[1].selected = true;
     }
     const dateStr = dataArr[4].innerHTML;
-/*     const [day, month, year] = dateStr.split('.').map(Number);
-
-    const date = new Date(year, month - 1, day + 1);
-    const dateString = date.toISOString().split('T')[0];
-     */
 
     const input = document.querySelector('input[type="date"]');
     input.value = dateStr;
-
 }
 
 $(document).on('click', 'button.btn-edit-stud', FillingEditFields);
