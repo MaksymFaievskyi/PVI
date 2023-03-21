@@ -14,8 +14,14 @@ let editElem;
 
 class Student{
     constructor(group, firstName, lastName, gender, birthday) {
+        let today = new Date();
+        let birthdayDate = new Date(birthday);
+
         if(!(group && firstName && lastName && gender && birthday)){
             throw new Error("Будь ласка заповніть всі поля!");
+        }
+        else if(today < birthdayDate){
+            throw new Error("Будь ласка введіть правильно дату!");
         }
         else if (!(/^[A-Za-z]{3,}$/.test(firstName))) {
             throw new Error("You entered an incorrect first name. Please check!");
@@ -52,8 +58,8 @@ $(".nav-link-notification").on("click", function(){
     $("#notification-point").css("animation", "glowing 1200ms infinite");
 })
 
-let $btnAdd = $('button#btn-add-edit');
-$btnAdd.on('click', function(event) {
+let $btnAddEdit = $('button#btn-add-edit');
+$btnAddEdit.on('click', function(event) {
     if(event.target.innerHTML === "Create")
     {
         AddStudent();
@@ -87,8 +93,7 @@ function EditStudent(){
             title: 'Error',
             text: error.message,
         })
-    }
-    
+    }  
 }
 
 function AddStudent(){
@@ -122,7 +127,7 @@ function AddStudent(){
         myModalAddEdit.hide()
     } catch (error) {
         Swal.fire({
-            icon: 'error',
+            icon: 'warning',
             title: 'Error',
             text: error.message,
         })
