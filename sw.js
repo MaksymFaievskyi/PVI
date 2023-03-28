@@ -1,5 +1,5 @@
-const staticCacheName = 's-app-v1';
-const dynamicCacheName = 'd-app-v1';
+const staticCacheName = 's-app-v3';
+const dynamicCacheName = 'd-app-v3';
 
 const assetUrls = [
   'student.html',
@@ -23,6 +23,7 @@ self.addEventListener('activate', async event => {
       .filter(name => name !== dynamicCacheName)
       .map(name => caches.delete(name))
   )
+  console.log("cacheNames: " + cacheNames);
 })
 
 self.addEventListener('fetch', event => {
